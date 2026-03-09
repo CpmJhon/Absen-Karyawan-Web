@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fake Dana Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Fake DanaGenerator</title>
   <style>
     * {
       margin: 0;
@@ -12,65 +12,71 @@
     }
 
     body {
+      background: #ffffff;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #f5f7fa;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
+      color: #111111;
     }
 
     .container {
-      max-width: 400px;
       width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
     }
 
     /* Header */
     .badge {
-      font-size: 13px;
-      color: #6b7280;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b6b6b;
       letter-spacing: 0.3px;
       margin-bottom: 8px;
-      text-align: center;
+      text-align: left;
     }
 
     h1 {
-      font-size: 32px;
-      font-weight: 600;
-      color: #111827;
-      text-align: center;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.1;
       margin-bottom: 8px;
-      line-height: 1.2;
+      text-align: left;
     }
 
     h1 span {
-      color: #2563eb;
+      color: #0066FF;
     }
 
     .subtitle {
       font-size: 14px;
-      color: #6b7280;
-      text-align: center;
+      color: #6b6b6b;
       margin-bottom: 24px;
+      text-align: left;
     }
 
     /* Card */
     .card {
-      background: white;
-      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid #eaeaea;
+      border-radius: 16px;
       padding: 24px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
 
     /* Form */
     .label {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
-      color: #374151;
+      color: #6b6b6b;
       margin-bottom: 6px;
       display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
     .input-wrapper {
@@ -78,80 +84,183 @@
       margin-bottom: 8px;
     }
 
-    .input-prefix {
+    .prefix {
       position: absolute;
-      left: 14px;
+      left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: #6b7280;
       font-size: 16px;
+      font-weight: 500;
+      color: #0066FF;
+      z-index: 1;
     }
 
     input {
       width: 100%;
-      padding: 14px 14px 14px 42px;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      height: 48px;
+      padding: 0 12px 0 42px;
       font-size: 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      background: #ffffff;
+      transition: border-color 0.2s;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      background: white;
     }
 
     input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      border-color: #0066FF;
     }
 
     input::placeholder {
-      color: #9ca3af;
+      color: #bbbbbb;
     }
 
     .hint {
       font-size: 12px;
-      color: #9ca3af;
+      color: #999999;
       margin-bottom: 20px;
     }
 
     /* Button */
     .generate-btn {
       width: 100%;
-      background: #2563eb;
+      height: 50px;
+      background: #0066FF;
       color: white;
       border: none;
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 10px;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: background 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
     }
 
-    .generate-btn:hover:not(:disabled) {
-      background: #1d4ed8;
+    .generate-btn:hover {
+      background: #0052cc;
+    }
+
+    .generate-btn:active {
+      transform: scale(0.98);
     }
 
     .generate-btn:disabled {
-      opacity: 0.6;
+      background: #99c2ff;
       cursor: not-allowed;
+      transform: none;
     }
 
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
+    /* Error */
+    .error {
+      color: #ff3333;
+      font-size: 13px;
+      margin: 12px 0 0;
       display: none;
     }
 
-    .generate-btn.loading .spinner {
+    .error.show {
       display: block;
+    }
+
+    /* Result Section */
+    .result-section {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .result-section.show {
+      display: block;
+    }
+
+    .result-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b6b6b;
+      margin-bottom: 12px;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .result-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #eaeaea;
+      background: #f9f9f9;
+    }
+
+    /* Action Buttons */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .download-btn {
+      background: #f0f7ff;
+      color: #0066FF;
+      border: 1px solid #d4e5ff;
+      height: 46px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .download-btn:hover {
+      background: #e0f0ff;
+      border-color: #0066FF;
+    }
+
+    .reset-btn {
+      background: #f5f5f5;
+      color: #666666;
+      border: 1px solid #eaeaea;
+      height: 46px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      background: #eeeeee;
+      border-color: #999999;
+    }
+
+    /* Footer */
+    .footer {
+      font-size: 11px;
+      color: #bbbbbb;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    /* Loading state */
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+    }
+
+    .generate-btn.loading .spinner {
+      display: inline-block;
     }
 
     .generate-btn.loading .btn-text {
@@ -162,94 +271,50 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Error */
-    .error {
-      background: #fef2f2;
-      border: 1px solid #fee2e2;
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      color: #dc2626;
-      font-size: 14px;
-      display: none;
+    /* Desktop optimization */
+    @media (min-width: 768px) {
+      .container {
+        max-width: 440px;
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 44px;
+      }
+      
+      .card {
+        padding: 28px;
+      }
+      
+      input {
+        height: 52px;
+        font-size: 17px;
+      }
+      
+      .generate-btn {
+        height: 54px;
+        font-size: 17px;
+      }
     }
 
-    .error.show {
-      display: block;
-    }
-
-    /* Result */
-    .result-section {
-      display: none;
-    }
-
-    .result-section.show {
-      display: block;
-    }
-
-    .result-label {
-      font-size: 14px;
-      font-weight: 500;
-      color: #374151;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .result-image {
-      width: 100%;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      margin-bottom: 16px;
-    }
-
-    .result-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .result-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .download-btn, .reset-btn {
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      transition: background-color 0.2s;
-    }
-
-    .download-btn {
-      background: #2563eb;
-      color: white;
-    }
-
-    .download-btn:hover {
-      background: #1d4ed8;
-    }
-
-    .reset-btn {
-      background: #f3f4f6;
-      color: #374151;
-      border: 1px solid #e5e7eb;
-    }
-
-    .reset-btn:hover {
-      background: #e5e7eb;
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      color: #9ca3af;
-      margin-top: 16px;
+    /* Small devices */
+    @media (max-width: 380px) {
+      h1 {
+        font-size: 36px;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      .action-grid {
+        gap: 8px;
+      }
+      
+      .download-btn, .reset-btn {
+        height: 42px;
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -257,83 +322,124 @@
   <div class="container">
     <!-- Header -->
     <div class="badge">Generator Tool</div>
-    <h1>Fake <span>Dana</span> Generator</h1>
-    <p class="subtitle">Masukkan nominal dan generate screenshot Dana palsu</p>
+    <h1>
+      Fake<br>
+      <span>Dana</span><br>
+      Generator
+    </h1>
+    <p class="subtitle">
+      Masukkan nominal dan generate screenshot Dana palsu
+    </p>
 
     <!-- Main Card -->
     <div class="card">
-      <!-- Form -->
       <div class="label">Nominal Dana</div>
       <div class="input-wrapper">
-        <span class="input-prefix">Rp</span>
-        <input type="text" id="nominal" placeholder="100.000" autocomplete="off">
+        <span class="prefix">Rp</span>
+        <input 
+          type="text" 
+          id="nominalInput" 
+          placeholder="100.000" 
+          inputmode="numeric"
+          autocomplete="off"
+        >
       </div>
       <div class="hint">Contoh: 10000 atau 1500000</div>
-
-      <!-- Error Message -->
-      <div class="error" id="error"></div>
-
-      <!-- Generate Button -->
+      
       <button class="generate-btn" id="generateBtn">
         <span class="spinner"></span>
         <span class="btn-text">⚡ Generate</span>
       </button>
+      
+      <div class="error" id="errorMsg"></div>
     </div>
 
     <!-- Result Section -->
     <div class="result-section" id="resultSection">
       <span class="result-label">Hasil Generate</span>
-      <div class="result-image">
-        <img id="resultImg" src="" alt="Dana result">
-      </div>
-      <div class="result-actions">
+      <img id="resultImage" class="result-image" src="" alt="Generated Dana">
+      
+      <div class="action-grid">
         <button class="download-btn" id="downloadBtn">↓ Download</button>
         <button class="reset-btn" id="resetBtn">✕ Reset</button>
       </div>
     </div>
 
     <!-- Footer -->
-    <div class="footer">For educational purposes only — not affiliated with Dana</div>
+    <div class="footer">
+      For educational purposes only — not affiliated with Dana
+    </div>
   </div>
 
   <script>
-    const nominalInput = document.getElementById('nominal');
+    const input = document.getElementById('nominalInput');
     const generateBtn = document.getElementById('generateBtn');
-    const errorDiv = document.getElementById('error');
     const resultSection = document.getElementById('resultSection');
-    const resultImg = document.getElementById('resultImg');
+    const resultImage = document.getElementById('resultImage');
+    const errorMsg = document.getElementById('errorMsg');
     const downloadBtn = document.getElementById('downloadBtn');
     const resetBtn = document.getElementById('resetBtn');
-    
+
     let currentBlob = null;
 
-    // Format rupiah saat mengetik
-    nominalInput.addEventListener('input', function(e) {
-      let value = this.value.replace(/\D/g, '');
-      if (value) {
-        this.value = new Intl.NumberFormat('id-ID').format(value);
+    // Format input dengan titik sebagai pemisah ribuan
+    function formatRupiah(angka) {
+      let numberString = angka.replace(/[^,\d]/g, '').toString();
+      let split = numberString.split(',');
+      let sisa = split[0].length % 3;
+      let rupiah = split[0].substr(0, sisa);
+      let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+      
+      if (ribuan) {
+        let separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+      
+      rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+      return rupiah;
+    }
+
+    // Event listener untuk formatting
+    input.addEventListener('input', function(e) {
+      let value = this.value.replace(/\./g, '');
+      if (value && !isNaN(value)) {
+        this.value = formatRupiah(value);
+      } else {
+        this.value = '';
       }
     });
 
-    // Enter untuk generate
-    nominalInput.addEventListener('keypress', function(e) {
+    // Enter key
+    input.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
-        generate();
+        handleGenerate();
       }
     });
 
-    // Generate function
-    async function generate() {
-      // Reset error
-      errorDiv.classList.remove('show');
+    // Hide error when typing
+    input.addEventListener('focus', function() {
+      errorMsg.classList.remove('show');
+    });
+
+    function showError(message) {
+      errorMsg.textContent = message;
+      errorMsg.classList.add('show');
+    }
+
+    function hideError() {
+      errorMsg.classList.remove('show');
+    }
+
+    async function handleGenerate() {
+      // Ambil angka bersih tanpa titik
+      const rawNumber = input.value.replace(/\./g, '');
       
-      // Ambil nominal
-      let raw = nominalInput.value.replace(/\./g, '');
-      
+      hideError();
+
       // Validasi
-      if (!raw || isNaN(raw) || Number(raw) <= 0) {
-        errorDiv.textContent = '⚠ Masukkan nominal yang valid.';
-        errorDiv.classList.add('show');
+      if (!rawNumber || isNaN(rawNumber) || Number(rawNumber) <= 0) {
+        showError('⚠ Masukkan nominal yang valid');
+        input.focus();
         return;
       }
 
@@ -343,62 +449,77 @@
       resultSection.classList.remove('show');
 
       try {
-        // Panggil API
+        // Panggil API endpoint
         const response = await fetch('/api/generate', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ angka: raw })
+          body: JSON.stringify({ angka: rawNumber })
         });
 
         if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Gagal generate');
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Gagal generate gambar');
         }
 
-        // Tampilkan hasil
         const blob = await response.blob();
         currentBlob = blob;
+        
+        // Tampilkan gambar
         const imageUrl = URL.createObjectURL(blob);
-        resultImg.src = imageUrl;
+        resultImage.src = imageUrl;
         resultSection.classList.add('show');
         
       } catch (error) {
-        errorDiv.textContent = '⚠ ' + error.message;
-        errorDiv.classList.add('show');
+        showError('⚠ ' + error.message);
       } finally {
-        // Hapus loading state
         generateBtn.classList.remove('loading');
         generateBtn.disabled = false;
       }
     }
 
-    // Download
-    downloadBtn.addEventListener('click', function() {
+    function handleDownload() {
       if (!currentBlob) return;
       
       const url = URL.createObjectURL(currentBlob);
       const a = document.createElement('a');
       a.href = url;
-      const nominal = nominalInput.value.replace(/\./g, '');
+      
+      // Nama file berdasarkan nominal
+      const nominal = input.value.replace(/\./g, '') || 'dana';
       a.download = `dana-${nominal}.png`;
+      
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
-    });
+    }
 
-    // Reset
-    resetBtn.addEventListener('click', function() {
-      nominalInput.value = '';
+    function handleReset() {
+      input.value = '';
       resultSection.classList.remove('show');
-      errorDiv.classList.remove('show');
+      resultImage.src = '';
       currentBlob = null;
-      resultImg.src = '';
-      nominalInput.focus();
-    });
+      hideError();
+      input.focus();
+    }
 
-    // Event listener untuk generate button
-    generateBtn.addEventListener('click', generate);
+    // Event listeners
+    generateBtn.addEventListener('click', handleGenerate);
+    downloadBtn.addEventListener('click', handleDownload);
+    resetBtn.addEventListener('click', handleReset);
+
+    // Cleanup object URL ketika gambar diganti
+    const originalSrcSet = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src').set;
+    Object.defineProperty(HTMLImageElement.prototype, 'src', {
+      set: function(value) {
+        if (this.src && this.src.startsWith('blob:')) {
+          URL.revokeObjectURL(this.src);
+        }
+        originalSrcSet.call(this, value);
+      }
+    });
   </script>
 </body>
 </html>
