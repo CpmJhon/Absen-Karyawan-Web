@@ -195,7 +195,7 @@ https://absen-karyawan-web.vercel.app/
 # 📸 Preview UI
 
 <p align="center">
-  <img src="https://n.uguu.se/DljBhDcD.jpg" />
+  <img src="https://o.uguu.se/THjihSpH.jpg" />
 </p>
 
 ---
