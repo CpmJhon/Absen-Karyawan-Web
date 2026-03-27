@@ -148,7 +148,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/USERNAME/facecheck-attendance.git
+git remote add origin https://github.com/CpmJhon/Absen-Karyawan-Web.git
 git push -u origin main
 ```
 
@@ -171,7 +171,7 @@ git push -u origin main
 Website kamu akan live di:
 
 ```
-https://username.github.io/facecheck-attendance/
+[https://username.github.io/facecheck-attendance/](https://github.com/CpmJhon/Absen-Karyawan-Web.git)
 ```
 
 ---
