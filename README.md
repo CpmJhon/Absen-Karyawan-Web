@@ -44,6 +44,12 @@
   <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3Z0dXg5eTF3ZzQ0a3Z5M3BzYWV5a2o1bW9nZzZ3bGx0dGx6dXl6ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ICOgUNjpvO0PC/giphy.gif" width="700"/>
 </p>
 
+# 📌 FaceCheck Attendance System
+
+Website ini adalah aplikasi absensi karyawan berbasis web yang menggunakan kamera untuk melakukan check-in dan check-out dengan foto sebagai bukti kehadiran. Sistem ini berjalan sepenuhnya di browser tanpa backend (serverless) dengan penyimpanan data menggunakan IndexedDB.
+
+---
+
 > ⚠️ **NOTE:**
 > Untuk hasil **REAL demo dari project kamu**, ganti GIF di atas dengan:
 
