@@ -187,7 +187,7 @@ CNAME
 Isi:
 
 ```
-absensi.jhonproduction.com
+https://absen-karyawan-web.vercel.app/
 ```
 
 ---
@@ -195,7 +195,7 @@ absensi.jhonproduction.com
 # 📸 Preview UI
 
 <p align="center">
-  <img src="https://n.uguu.se/bRvTtKbg.jpg" />
+  <img src="https://n.uguu.se/DljBhDcD.jpg" />
 </p>
 
 ---
